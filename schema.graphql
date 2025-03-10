@@ -1,0 +1,174 @@
+type Account @entity {
+  " Equals to: <accountAddress>"
+  id: ID!
+
+  " Account address "
+  address: Bytes!
+
+  " Token balances that this account holds "
+  listTheBalanceOfTokens: [AccountBalance!]! @derivedFrom(field: "account")
+}
+
+type AccountBalance @entity {
+  " Equals to: <accountAddress>-<tokenAddress>"
+  id: ID!
+
+  " Account address "
+  account: Account!
+
+  " Current account balance "
+  balance: BigDecimal!
+
+  " Block number in which the balance was last modified "
+  block: BigInt
+
+  " Hash of the lastest transaction "
+  latestTransactionHash: Bytes
+
+  " Hash of the lastest transaction "
+  latestTransactionTimestamp: BigInt
+
+  " Token address "
+  token: Token!
+
+  " Total transaction "
+  totalTransaction: BigInt!
+
+  " Total transaction transferred "
+  totalTransactionTransferred: BigInt!
+
+  " Total transaction received "
+  totalTransactionReceived: BigInt!
+
+  " Total token transferred "
+  totalTokenTransferred: BigDecimal!
+
+  " Total token received "
+  totalTokenReceived: BigDecimal!
+
+  " Transaction history (both sent and received) "
+  histories: [HistoryERC7818!]! @derivedFrom(field: "relatedBalance")
+}
+
+type HistoryERC7818 @entity {
+  " Equals to: <accountAddress>-<tokenAddress>"
+  id: ID!
+
+  " Block number of the transaction "
+  block: BigInt!
+
+  " Transaction timestamp "
+  timestamp: BigInt!
+
+  " Sender address "
+  sender: AccountBalance!
+
+  " Receiver address "
+  receiver: AccountBalance!
+
+  " Reference to the account balance affected (either sender or receiver) "
+  relatedBalance: AccountBalance!
+
+  " Quantity of tokens transferred "
+  amount: BigDecimal!
+
+  " Transaction hash "
+  transactionHash: Bytes!
+
+  " Token address "
+  token: Token!
+}
+
+type Token @entity {
+  id: ID!
+
+  " Token address "
+  address: Bytes!
+
+  " Number of decimals the token uses "
+  decimals: Int
+
+  " Human-readable name of the token "
+  name: String
+
+  " Symbol of the token "
+  symbol: String
+
+  " Total token supply "
+  totalSupply: BigDecimal
+
+  " Total token transferred "
+  totalTokenTransferred: BigDecimal
+
+  " Total token minted "
+  totalTokenMinted: BigDecimal
+
+  " Total token burned "
+  totalTokenBurned: BigDecimal
+
+  " Total number of events (all types)"
+  totalEvent: BigInt
+
+  " Total number of transfer events "
+  totalEventTransfer: BigInt
+
+  " Total number of mint events "
+  totalEventMint: BigInt
+
+  " Total number of burn events "
+  totalEventBurn: BigInt
+
+  " List of account balance that hold this tokens "
+  accountBalances: [AccountBalance!]! @derivedFrom(field: "token")
+
+  " List of transfer event that interacts with these tokens "
+  transferEvents: [TransferEvent!]! @derivedFrom(field: "token")
+
+  " List of mint event that interacts with these tokens "
+  mintEvents: [MintEvent!]! @derivedFrom(field: "token")
+
+  " List of burn event that interacts with these tokens "
+  burnEvents: [BurnEvent!]! @derivedFrom(field: "token")
+}
+
+interface Token7818Event {
+  id: ID!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  amount: BigDecimal!
+  token: Token!
+}
+
+type TransferEvent implements Token7818Event @entity {
+  id: ID!
+  sender: AccountBalance!
+  receiver: AccountBalance!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  amount: BigDecimal!
+  token: Token!
+}
+
+type MintEvent implements Token7818Event @entity {
+  id: ID!
+  minter: AccountBalance!
+  destination: AccountBalance!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  amount: BigDecimal!
+  token: Token!
+}
+
+type BurnEvent implements Token7818Event @entity {
+  id: ID!
+  burner: AccountBalance!
+  destination: AccountBalance!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  amount: BigDecimal!
+  token: Token!
+}

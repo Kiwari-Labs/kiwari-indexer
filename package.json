@@ -1,0 +1,19 @@
+{
+  "name": "ethereum-blocks",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create-local": "graph create --node http://localhost:8020/ kiwari/token-tracker-service",
+    "remove-local": "graph remove --node http://localhost:8020/ kiwari/token-tracker-service",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kiwari/token-tracker-service"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.38.0",
+    "uuid": "^11.1.0"
+  }
+}
