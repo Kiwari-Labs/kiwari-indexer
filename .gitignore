@@ -7,7 +7,6 @@ src/types/
 src/mappings/helpers/metadata.ts
 .DS_STORE
 yarn-error.log
-subgraph.yaml
 config/addresses.ts
 config/generatedAddresses.json
 tests/.bin

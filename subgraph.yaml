@@ -1,0 +1,27 @@
+specVersion: 1.0.0
+description: Indexer for ERC-7818 and ERC-7858 (Compatible with ERC-20 ERC-721)
+repository: https://github.com/kiwari/
+schema:
+  file: ./schema.graphql
+features:
+  - fullTextSearch
+dataSources:
+  - name: ERC-7818
+    kind: ethereum/contract
+    source:
+      abi: ERC20
+      address: "0x5abeFE76AE3bEA15065A78BCd6E6dDf9F6dcdD70"
+      startBlock: 957353
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mappings/without-factory/erc-7818/handlers/transfer.handler.ts
+      entities:
+        - TransferEvent
+      abis:
+        - name: ERC20
+          file: ./abis/ExampleERC20ABI.json
+      eventHandlers:
+        - event: "Transfer(indexed address,indexed address,uint256)"
+          handler: transferHandler
