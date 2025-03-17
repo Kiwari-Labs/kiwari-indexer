@@ -79,6 +79,15 @@ type HistoryERC7818 @entity {
   token: Token!
 }
 
+type Factory @entity {
+  id: ID!
+
+  " Factory address "
+  address: Bytes!
+
+  tokens: [Token!]! @derivedFrom(field: "factoryAddress")
+}
+
 type Token @entity {
   id: ID!
 
@@ -93,6 +102,18 @@ type Token @entity {
 
   " Symbol of the token "
   symbol: String
+
+  "Factory Contract Address"
+  factoryAddress: Factory
+
+  "Creator Contract"
+  creator: Account
+
+  "Create Contract At "
+  createdAt: BigInt
+
+  "Create Contract At Block Number"
+  createdAtBlockNumber: BigInt
 
   " Total token supply "
   totalSupply: BigDecimal
