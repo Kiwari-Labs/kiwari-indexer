@@ -1,5 +1,5 @@
 # Kiwari Indexer
-This project is an indexer for indexing data of ERC-7818 and ERC-7858 tokens, compatible with ERC-20 and ERC-721 tokens.
+This project is a tmeplate indexer for indexing data of ERC-7818 and ERC-7858 tokens, compatible with ERC-20 and ERC-721 tokens.
 
 ## DB Diagram
 ![kiwali-indexer](https://github.com/user-attachments/assets/21a1600b-62a5-4a32-9e8f-2d703c1bbacb)
