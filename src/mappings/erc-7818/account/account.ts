@@ -1,10 +1,6 @@
 import { BigDecimal, Bytes } from "@graphprotocol/graph-ts";
-import {
-  Account,
-  AccountBalance,
-  Token,
-} from "../../../../../generated/schema";
-import { ZERO, ONE } from "../../../../helpers/number";
+import { Account, AccountBalance, Token } from "../../../../generated/schema";
+import { ZERO, ONE } from "../../../helpers/number";
 
 export function getOrCreateAccount(accountAddress: Bytes): Account {
   let accountId = accountAddress.toHex();

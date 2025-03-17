@@ -1,9 +1,9 @@
-import { Transfer } from "../../../../../generated/ERC-7818/ERC20";
+import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import {
   AccountBalance,
   Token,
   TransferEvent,
-} from "../../../../../generated/schema";
+} from "../../../../generated/schema";
 
 export function createTransferEvent(
   event: Transfer,

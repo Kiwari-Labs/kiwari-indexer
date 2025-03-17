@@ -1,9 +1,5 @@
-import { Transfer } from "../../../../../generated/ERC-7818/ERC20";
-import {
-  AccountBalance,
-  BurnEvent,
-  Token,
-} from "../../../../../generated/schema";
+import { Transfer } from "../../../../generated/ERC-7818/ERC20";
+import { AccountBalance, BurnEvent, Token } from "../../../../generated/schema";
 
 export function createBurnEvent(
   event: Transfer,

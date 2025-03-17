@@ -1,6 +1,6 @@
 import { BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
-import { Token } from "../../../../generated/schema";
-import { ONE, ZERO } from "../../../helpers/number";
+import { Token } from "../../../generated/schema";
+import { ONE, ZERO } from "../../helpers/number";
 
 export function getOrCreateToken(tokenAddress: Bytes): Token {
   let tokenId = tokenAddress.toHex();

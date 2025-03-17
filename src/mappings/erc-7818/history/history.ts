@@ -3,8 +3,8 @@ import {
   AccountBalance,
   HistoryERC7818,
   Token,
-} from "../../../../../generated/schema";
-import { Transfer } from "../../../../../generated/ERC-7818/ERC20";
+} from "../../../../generated/schema";
+import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import { getOrCreateAccountBalance } from "../account";
 
 export namespace TransactionType {

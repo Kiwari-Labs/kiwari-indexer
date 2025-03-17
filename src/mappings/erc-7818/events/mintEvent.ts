@@ -1,9 +1,5 @@
-import { Transfer } from "../../../../../generated/ERC-7818/ERC20";
-import {
-  AccountBalance,
-  MintEvent,
-  Token,
-} from "../../../../../generated/schema";
+import { Transfer } from "../../../../generated/ERC-7818/ERC20";
+import { AccountBalance, MintEvent, Token } from "../../../../generated/schema";
 
 export function createMintEvent(
   event: Transfer,

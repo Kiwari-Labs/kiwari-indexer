@@ -1,4 +1,4 @@
-import { GENESIS_ADDRESS } from "../../../../constants";
+import { GENESIS_ADDRESS } from "../../../constants";
 import {
   increaseAccountBalance,
   decreaseAccountBalance,
@@ -6,14 +6,10 @@ import {
   increaseTotalTransactionTransfer,
   getOrCreateAccount,
 } from "./../account";
-import { Transfer } from "../../../../../generated/ERC-7818/ERC20";
+import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import { getOrCreateToken, incressTokenAndEvent } from "./../erc-7818";
 import { TransactionType, createHistory } from "./../history";
-import {
-  Account,
-  AccountBalance,
-  Token,
-} from "../../../../../generated/schema";
+import { Account, AccountBalance, Token } from "../../../../generated/schema";
 import { BigDecimal, Bytes } from "@graphprotocol/graph-ts";
 import { createTransferEvent } from "../events/transferEvent";
 import { createMintEvent } from "../events/mintEvent";
