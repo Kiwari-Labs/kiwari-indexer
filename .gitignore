@@ -17,3 +17,9 @@ data
 .env
 
 *.tsbuildinfo
+
+
+subgraph.yaml
+
+
+config/config.json

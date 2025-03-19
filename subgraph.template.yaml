@@ -1,0 +1,69 @@
+specVersion: 1.0.0
+description: Indexer for ERC-7818 and ERC-7858 (Compatible with ERC-20 ERC-721)
+repository: https://github.com/kiwari/
+schema:
+  file: ./schema.graphql
+dataSources:
+{{#isDeployFromFactory}}
+  - name: ERC7818Factory
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: TemplateERC7818Factory
+      address: "{{factoryAddress}}"
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mappings/erc-7818/factory.ts
+      entities:
+        - TokenDeployed
+      abis:
+        - name: TemplateERC7818Factory
+          file: ./abis/TemplateERC7818Factory.json
+      eventHandlers:
+        - event: "NewTokenContract(indexed address,indexed address)"
+          handler: handleTokenDeployed
+    templates:
+    - name: ERC7818
+      kind: ethereum/contract
+      network: {{network}}
+      source:
+        abi: ERC20
+      mapping:
+        kind: ethereum/events
+        apiVersion: 0.0.7
+        language: wasm/assemblyscript
+        entities:
+          - Transfer
+        abis:
+          - name: ERC20
+            file: ./abis/TemplateERC7818ABI.json
+        eventHandlers:
+          - event: "Transfer(indexed address,indexed address,uint256)"
+            handler: transferHandler
+        file: ./src/mappings/erc-7818/handlers/transfer.handler.ts
+{{/isDeployFromFactory}}
+{{^isDeployFromFactory}}
+  - name: ERC-7818
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ERC20
+      address: "{{contractAddress}}"
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mappings/erc-7818/handlers/transfer.handler.ts
+      entities:
+        - TransferEvent
+      abis:
+        - name: ERC20
+          file: ./abis/TemplateERC7818ABI.json
+      eventHandlers:
+        - event: "Transfer(indexed address,indexed address,uint256)"
+          handler: transferHandler
+{{/isDeployFromFactory}}

@@ -6,14 +6,26 @@
     "build": "graph build",
     "create-local": "graph create --node http://localhost:8020/ kiwari/token-tracker-service",
     "remove-local": "graph remove --node http://localhost:8020/ kiwari/token-tracker-service",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kiwari/token-tracker-service"
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 kiwari/token-tracker-service",
+    "deploy-local:erc7818-without-factory": "yarn && yarn prepare:erc7818-without-factory && yarn create-local && yarn deploy-local",
+    "deploy-local:erc7818-with-factory": "yarn && yarn prepare:erc7818-with-factory && yarn create-local && yarn deploy-local",
+    "prep:addresses:erc7818-without-factory": "ts-node config/erc7818WithoutFactoryScript.ts && mustache ./config/generatedAddresses.json ./config/addresses.template.ts > ./config/addresses.ts",
+    "prepare:erc7818-without-factory": "yarn prep:addresses:erc7818-without-factory && mustache ./config/generatedAddresses.json subgraph.template.yaml > subgraph.yaml && graph codegen --output-dir src/types/",
+    "prep:addresses:erc7818-with-factory": "ts-node config/erc7818FactoryScript.ts && mustache ./config/generatedAddresses.json ./config/addresses.template.ts > ./config/addresses.ts",
+    "prepare:erc7818-with-factory": "yarn prep:addresses:erc7818-with-factory && mustache ./config/generatedAddresses.json subgraph.template.yaml > subgraph.yaml && graph codegen --output-dir src/types/"
   },
   "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.96.0",
     "typescript": "^5.8.2"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "dependencies": {
     "@graphprotocol/graph-ts": "^0.38.0",
+    "@types/mustache": "^4.2.5",
+    "@types/node": "^22.13.10",
+    "fs": "^0.0.1-security",
+    "mustache": "^4.2.0",
+    "ts-node": "^10.9.2",
     "uuid": "^11.1.0"
   }
 }
