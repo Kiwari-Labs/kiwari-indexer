@@ -6,7 +6,7 @@ export let addresses: Addresses = {
   factoryAddress: "{{factoryAddress}}",
   network: "{{network}}",
   startBlock: "{{startBlock}}",
-  isDeployFromFactory: false,
+  isDeployFromFactory: true,
   contractAddress: "0x0000000000000000000000000000000000000000",
 };
 

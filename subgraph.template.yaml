@@ -25,25 +25,25 @@ dataSources:
       eventHandlers:
         - event: "NewTokenContract(indexed address,indexed address)"
           handler: handleTokenDeployed
-    templates:
-    - name: ERC7818
-      kind: ethereum/contract
-      network: {{network}}
-      source:
-        abi: ERC20
-      mapping:
-        kind: ethereum/events
-        apiVersion: 0.0.7
-        language: wasm/assemblyscript
-        entities:
-          - Transfer
-        abis:
-          - name: ERC20
-            file: ./abis/TemplateERC7818ABI.json
-        eventHandlers:
-          - event: "Transfer(indexed address,indexed address,uint256)"
-            handler: transferHandler
-        file: ./src/mappings/erc-7818/handlers/transfer.handler.ts
+templates:
+  - name: ERC7818
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ERC20
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/TemplateERC7818ABI.json
+      eventHandlers:
+        - event: "Transfer(indexed address,indexed address,uint256)"
+          handler: transferHandler
+      file: ./src/mappings/erc-7818/handlers/transfer.handler.ts
 {{/isDeployFromFactory}}
 {{^isDeployFromFactory}}
   - name: ERC-7818
