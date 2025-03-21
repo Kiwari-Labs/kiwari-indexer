@@ -85,6 +85,9 @@ type Factory @entity {
   " Factory address "
   address: Bytes!
 
+  "Total number of contracts created"
+  totalContractCreated: BigInt
+
   tokens: [Token!]! @derivedFrom(field: "factoryAddress")
 }
 

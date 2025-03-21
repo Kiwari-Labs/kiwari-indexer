@@ -2,7 +2,7 @@ import { Factory, Token } from "../../../generated/schema";
 import { ERC7818 } from "../../../generated/templates";
 import { NewTokenContract } from "../../../generated/ERC7818Factory/TemplateERC20Factory";
 import { getOrCreateAccount } from "../erc-7818/account";
-import { ZERO } from "../../helpers/number";
+import { ONE, ZERO } from "../../helpers/number";
 
 export function handleTokenDeployed(event: NewTokenContract): void {
   let factory = Factory.load(event.address.toHex());
@@ -12,6 +12,7 @@ export function handleTokenDeployed(event: NewTokenContract): void {
   if (factory == null) {
     factory = new Factory(event.address.toHex());
     factory.address = event.address;
+    factory.totalContractCreated = ZERO;
     factory.save();
   }
 
@@ -30,6 +31,9 @@ export function handleTokenDeployed(event: NewTokenContract): void {
   token.factoryAddress = factory.address.toHex();
   token.creator = account.id;
   token.save();
+
+  factory.totalContractCreated = factory.totalContractCreated!.plus(ONE);
+  factory.save();
 
   // Start indexing the new ERC-20 token
   ERC7818.create(event.params.tokenAddress);
