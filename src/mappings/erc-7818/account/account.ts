@@ -1,5 +1,9 @@
 import { BigDecimal, Bytes } from "@graphprotocol/graph-ts";
-import { Account, AccountBalance, Token } from "../../../../generated/schema";
+import {
+  Account,
+  AccountBalance,
+  TokenERC7818,
+} from "../../../../generated/schema";
 import { ZERO, ONE } from "../../../helpers/number";
 
 export function getOrCreateAccount(accountAddress: Bytes): Account {
@@ -17,7 +21,7 @@ export function getOrCreateAccount(accountAddress: Bytes): Account {
 
 export function increaseTotalTransactionTransfer(
   account: Account,
-  token: Token
+  token: TokenERC7818
 ): AccountBalance {
   let accountBal = getOrCreateAccountBalance(account, token);
   accountBal.totalTransactionTransferred =
@@ -27,7 +31,7 @@ export function increaseTotalTransactionTransfer(
 
 export function increaseTotalTransactionReceive(
   account: Account,
-  token: Token
+  token: TokenERC7818
 ): AccountBalance {
   let accountBal = getOrCreateAccountBalance(account, token);
   accountBal.totalTransactionReceived =
@@ -44,7 +48,7 @@ function increaseTotalTransaction(accountBal: AccountBalance): AccountBalance {
 export function increaseAccountBalance(
   account: Account,
   amount: BigDecimal,
-  token: Token
+  token: TokenERC7818
 ): AccountBalance {
   let accountBal = getOrCreateAccountBalance(account, token);
   accountBal.balance = accountBal.balance.plus(amount);
@@ -56,7 +60,7 @@ export function increaseAccountBalance(
 export function decreaseAccountBalance(
   account: Account,
   amount: BigDecimal,
-  token: Token
+  token: TokenERC7818
 ): AccountBalance {
   let accountBal = getOrCreateAccountBalance(account, token);
   accountBal.balance = accountBal.balance.minus(amount);
@@ -68,7 +72,7 @@ export function decreaseAccountBalance(
 
 export function getOrCreateAccountBalance(
   account: Account,
-  token: Token
+  token: TokenERC7818
 ): AccountBalance {
   let balanceId = `${account.id}-${token.id}`;
   let accountBal = AccountBalance.load(balanceId);
@@ -76,7 +80,6 @@ export function getOrCreateAccountBalance(
   if (!accountBal) {
     accountBal = new AccountBalance(balanceId);
     accountBal.account = account.id;
-    accountBal.token = token.id;
     accountBal.balance = ZERO.toBigDecimal();
     accountBal.totalTransaction = ZERO;
     accountBal.totalTransactionTransferred = ZERO;

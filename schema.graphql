@@ -28,9 +28,6 @@ type AccountBalance @entity {
   " Hash of the lastest transaction "
   latestTransactionTimestamp: BigInt
 
-  " Token address "
-  token: Token!
-
   " Total transaction "
   totalTransaction: BigInt!
 
@@ -76,7 +73,7 @@ type HistoryERC7818 @entity {
   transactionHash: Bytes!
 
   " Token address "
-  token: Token!
+  token: TokenERC7818!
 }
 
 type Factory @entity {
@@ -88,10 +85,10 @@ type Factory @entity {
   "Total number of contracts created"
   totalContractCreated: BigInt
 
-  tokens: [Token!]! @derivedFrom(field: "factoryAddress")
+  tokens: [TokenERC7818!]! @derivedFrom(field: "factoryAddress")
 }
 
-type Token @entity {
+type TokenERC7818 @entity {
   id: ID!
 
   " Token address "
@@ -142,9 +139,6 @@ type Token @entity {
   " Total number of burn events "
   totalEventBurn: BigInt
 
-  " List of account balance that hold this tokens "
-  accountBalances: [AccountBalance!]! @derivedFrom(field: "token")
-
   " List of transfer event that interacts with these tokens "
   transferEvents: [TransferEvent!]! @derivedFrom(field: "token")
 
@@ -172,7 +166,7 @@ type TransferEvent implements Token7818Event @entity {
   timestamp: BigInt!
   transactionHash: Bytes!
   amount: BigDecimal!
-  token: Token!
+  token: TokenERC7818!
 }
 
 type MintEvent implements Token7818Event @entity {
@@ -183,7 +177,7 @@ type MintEvent implements Token7818Event @entity {
   timestamp: BigInt!
   transactionHash: Bytes!
   amount: BigDecimal!
-  token: Token!
+  token: TokenERC7818!
 }
 
 type BurnEvent implements Token7818Event @entity {
@@ -194,5 +188,5 @@ type BurnEvent implements Token7818Event @entity {
   timestamp: BigInt!
   transactionHash: Bytes!
   amount: BigDecimal!
-  token: Token!
+  token: TokenERC7818!
 }

@@ -1,8 +1,7 @@
 import {
   Account,
-  AccountBalance,
   HistoryERC7818,
-  Token,
+  TokenERC7818,
 } from "../../../../generated/schema";
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import { getOrCreateAccountBalance } from "../account";
@@ -16,7 +15,7 @@ export function createHistory(
   owner: Account,
   interactor: Account,
   event: Transfer,
-  token: Token,
+  token: TokenERC7818,
   type: string
 ): HistoryERC7818 {
   let historyId = `${

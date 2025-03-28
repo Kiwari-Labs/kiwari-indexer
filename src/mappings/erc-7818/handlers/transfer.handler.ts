@@ -9,7 +9,11 @@ import {
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import { getOrCreateToken, incressTokenAndEvent } from "./../erc-7818";
 import { TransactionType, createHistory } from "./../history";
-import { Account, AccountBalance, Token } from "../../../../generated/schema";
+import {
+  Account,
+  AccountBalance,
+  TokenERC7818,
+} from "../../../../generated/schema";
 import { BigDecimal, Bytes } from "@graphprotocol/graph-ts";
 import { createTransferEvent } from "../events/transferEvent";
 import { createMintEvent } from "../events/mintEvent";
@@ -20,8 +24,8 @@ export function transferHandler(event: Transfer): void {
     event.params.to.toHex() == GENESIS_ADDRESS
       ? "burn"
       : event.params.from.toHex() == GENESIS_ADDRESS
-      ? "mint"
-      : "transfer";
+        ? "mint"
+        : "transfer";
 
   let fromAccount = getOrCreateAccount(event.params.from);
   let toAccount = getOrCreateAccount(event.params.to);
@@ -42,7 +46,7 @@ function handleTransfer(
   event: Transfer,
   fromAccount: Account,
   toAccount: Account,
-  token: Token,
+  token: TokenERC7818,
   amount: BigDecimal,
   transactionAction: string
 ): void {
@@ -69,7 +73,7 @@ function handleTransfer(
 function updateSenderAccount(
   event: Transfer,
   account: Account,
-  token: Token,
+  token: TokenERC7818,
   amount: BigDecimal
 ): AccountBalance {
   let accountBalance = decreaseAccountBalance(account, amount, token);
@@ -96,7 +100,7 @@ function updateSenderAccount(
 function updateReceiverAccount(
   event: Transfer,
   account: Account,
-  token: Token,
+  token: TokenERC7818,
   amount: BigDecimal
 ): AccountBalance {
   let accountBalance = increaseAccountBalance(account, amount, token);
@@ -124,7 +128,7 @@ function createAndSaveHistory(
   sender: Account,
   receiver: Bytes,
   event: Transfer,
-  token: Token,
+  token: TokenERC7818,
   transactionType: string
 ): void {
   let interactor = getOrCreateAccount(receiver);

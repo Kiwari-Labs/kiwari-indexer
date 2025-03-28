@@ -1,11 +1,15 @@
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
-import { AccountBalance, BurnEvent, Token } from "../../../../generated/schema";
+import {
+  AccountBalance,
+  BurnEvent,
+  TokenERC7818,
+} from "../../../../generated/schema";
 
 export function createBurnEvent(
   event: Transfer,
   burner: AccountBalance,
   destination: AccountBalance,
-  token: Token
+  token: TokenERC7818
 ): BurnEvent {
   let eventId = `${event.transaction.hash.toHex()}-${event.logIndex.toString()}`;
 

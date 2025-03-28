@@ -1,4 +1,4 @@
-import { Factory, Token } from "../../../generated/schema";
+import { Factory, TokenERC7818 } from "../../../generated/schema";
 import { ERC7818 } from "../../../generated/templates";
 import { NewTokenContract } from "../../../generated/ERC7818Factory/TemplateERC20Factory";
 import { getOrCreateAccount } from "../erc-7818/account";
@@ -16,7 +16,7 @@ export function handleTokenDeployed(event: NewTokenContract): void {
     factory.save();
   }
 
-  let token = new Token(event.params.tokenAddress.toHex());
+  let token = new TokenERC7818(event.params.tokenAddress.toHex());
   token.address = event.params.tokenAddress;
   token.totalSupply = ZERO.toBigDecimal();
   token.totalTokenTransferred = ZERO.toBigDecimal();

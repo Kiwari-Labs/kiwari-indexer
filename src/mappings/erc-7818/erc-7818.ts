@@ -1,16 +1,16 @@
 import { BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
-import { Token } from "../../../generated/schema";
+import { TokenERC7818 } from "../../../generated/schema";
 import { ONE, ZERO } from "../../helpers/number";
 
-export function getOrCreateToken(tokenAddress: Bytes): Token {
+export function getOrCreateToken(tokenAddress: Bytes): TokenERC7818 {
   let tokenId = tokenAddress.toHex();
-  let existingToken = Token.load(tokenId);
+  let existingToken = TokenERC7818.load(tokenId);
 
   if (existingToken != null) {
-    return existingToken as Token;
+    return existingToken as TokenERC7818;
   }
 
-  let newtoken = new Token(tokenId);
+  let newtoken = new TokenERC7818(tokenId);
   newtoken.address = tokenAddress;
   newtoken.totalSupply = ZERO.toBigDecimal();
   newtoken.totalTokenTransferred = ZERO.toBigDecimal();
@@ -27,10 +27,10 @@ export function getOrCreateToken(tokenAddress: Bytes): Token {
 }
 
 export function incressTokenAndEvent(
-  token: Token,
+  token: TokenERC7818,
   amount: BigDecimal,
   eventType: string
-): Token {
+): TokenERC7818 {
   let existingToken = getOrCreateToken(token.address);
   existingToken.totalEvent = existingToken.totalEvent!.plus(ONE);
 

@@ -1,7 +1,7 @@
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import {
   AccountBalance,
-  Token,
+  TokenERC7818,
   TransferEvent,
 } from "../../../../generated/schema";
 
@@ -9,7 +9,7 @@ export function createTransferEvent(
   event: Transfer,
   from: AccountBalance,
   to: AccountBalance,
-  token: Token
+  token: TokenERC7818
 ): TransferEvent {
   let eventId = `${event.transaction.hash.toHex()}-${event.logIndex.toString()}`;
 
