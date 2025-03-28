@@ -1,16 +1,16 @@
-import { Factory, TokenERC7818 } from "../../../generated/schema";
+import { FactoryERC7818, TokenERC7818 } from "../../../generated/schema";
 import { ERC7818 } from "../../../generated/templates";
 import { NewTokenContract } from "../../../generated/ERC7818Factory/TemplateERC20Factory";
 import { getOrCreateAccount } from "../erc-7818/account";
 import { ONE, ZERO } from "../../helpers/number";
 
 export function handleTokenDeployed(event: NewTokenContract): void {
-  let factory = Factory.load(event.address.toHex());
+  let factory = FactoryERC7818.load(event.address.toHex());
 
   let account = getOrCreateAccount(event.params.deployer);
 
   if (factory == null) {
-    factory = new Factory(event.address.toHex());
+    factory = new FactoryERC7818(event.address.toHex());
     factory.address = event.address;
     factory.totalContractCreated = ZERO;
     factory.save();

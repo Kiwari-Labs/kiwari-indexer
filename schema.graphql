@@ -76,7 +76,7 @@ type HistoryERC7818 @entity {
   token: TokenERC7818!
 }
 
-type Factory @entity {
+type FactoryERC7818 @entity {
   id: ID!
 
   " Factory address "
@@ -104,7 +104,7 @@ type TokenERC7818 @entity {
   symbol: String
 
   "Factory Contract Address"
-  factoryAddress: Factory
+  factoryAddress: FactoryERC7818
 
   "Creator Contract"
   creator: Account
