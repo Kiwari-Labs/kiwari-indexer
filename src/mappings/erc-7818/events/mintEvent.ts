@@ -1,7 +1,7 @@
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import {
   AccountBalance,
-  MintEvent,
+  MintEvent7818,
   TokenERC7818,
 } from "../../../../generated/schema";
 
@@ -10,10 +10,10 @@ export function createMintEvent(
   minter: AccountBalance,
   destination: AccountBalance,
   token: TokenERC7818
-): MintEvent {
+): MintEvent7818 {
   let eventId = `${event.transaction.hash.toHex()}-${event.logIndex.toString()}`;
 
-  let mintEvent = new MintEvent(eventId);
+  let mintEvent = new MintEvent7818(eventId);
 
   mintEvent.minter = minter.id;
   mintEvent.destination = destination.id;

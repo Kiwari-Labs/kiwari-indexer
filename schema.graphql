@@ -140,13 +140,13 @@ type TokenERC7818 @entity {
   totalEventBurn: BigInt
 
   " List of transfer event that interacts with these tokens "
-  transferEvents: [TransferEvent!]! @derivedFrom(field: "token")
+  transferEvents: [TransferEvent7818!]! @derivedFrom(field: "token")
 
   " List of mint event that interacts with these tokens "
-  mintEvents: [MintEvent!]! @derivedFrom(field: "token")
+  mintEvents: [MintEvent7818!]! @derivedFrom(field: "token")
 
   " List of burn event that interacts with these tokens "
-  burnEvents: [BurnEvent!]! @derivedFrom(field: "token")
+  burnEvents: [BurnEvent7818!]! @derivedFrom(field: "token")
 }
 
 interface Token7818Event {
@@ -158,7 +158,7 @@ interface Token7818Event {
   token: Token!
 }
 
-type TransferEvent implements Token7818Event @entity {
+type TransferEvent7818 implements Token7818Event @entity {
   id: ID!
   sender: AccountBalance!
   receiver: AccountBalance!
@@ -169,7 +169,7 @@ type TransferEvent implements Token7818Event @entity {
   token: TokenERC7818!
 }
 
-type MintEvent implements Token7818Event @entity {
+type MintEvent7818 implements Token7818Event @entity {
   id: ID!
   minter: AccountBalance!
   destination: AccountBalance!
@@ -180,7 +180,7 @@ type MintEvent implements Token7818Event @entity {
   token: TokenERC7818!
 }
 
-type BurnEvent implements Token7818Event @entity {
+type BurnEvent7818 implements Token7818Event @entity {
   id: ID!
   burner: AccountBalance!
   destination: AccountBalance!
