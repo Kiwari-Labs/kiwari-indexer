@@ -76,8 +76,14 @@ function updateSenderAccount(
   token: TokenERC7818,
   amount: BigDecimal
 ): AccountBalance {
-  let accountBalance = decreaseAccountBalance(account, amount, token);
-  accountBalance = increaseTotalTransactionTransfer(account, token);
+  let accountBalance = decreaseAccountBalance(
+    account,
+    amount,
+    null,
+    token,
+    null
+  );
+  accountBalance = increaseTotalTransactionTransfer(account, token, null);
 
   accountBalance.block = event.block.number;
   accountBalance.latestTransactionHash = event.transaction.hash;
@@ -103,8 +109,14 @@ function updateReceiverAccount(
   token: TokenERC7818,
   amount: BigDecimal
 ): AccountBalance {
-  let accountBalance = increaseAccountBalance(account, amount, token);
-  accountBalance = increaseTotalTransactionReceive(account, token);
+  let accountBalance = increaseAccountBalance(
+    account,
+    amount,
+    null,
+    token,
+    null
+  );
+  accountBalance = increaseTotalTransactionReceive(account, token, null);
 
   accountBalance.block = event.block.number;
   accountBalance.latestTransactionHash = event.transaction.hash;

@@ -23,8 +23,8 @@ export function createHistory(
   }-${event.transaction.hash.toHex()}-${event.logIndex.toString()}`;
   let history = new HistoryERC7818(historyId);
 
-  let ownerAccount = getOrCreateAccountBalance(owner, token);
-  let interactorAccount = getOrCreateAccountBalance(interactor, token);
+  let ownerAccount = getOrCreateAccountBalance(owner, token, null);
+  let interactorAccount = getOrCreateAccountBalance(interactor, token, null);
 
   history.block = event.block.number;
   history.timestamp = event.block.timestamp;
