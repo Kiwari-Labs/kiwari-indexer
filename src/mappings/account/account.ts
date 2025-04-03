@@ -3,8 +3,8 @@ import {
   Account,
   AccountBalance,
   TokenERC7818,
-} from "../../../../generated/schema";
-import { ZERO, ONE } from "../../../helpers/number";
+} from "../../../generated/schema";
+import { ZERO, ONE } from "../../helpers/number";
 
 export function getOrCreateAccount(accountAddress: Bytes): Account {
   let accountId = accountAddress.toHex();

@@ -4,7 +4,7 @@ import {
   TokenERC7818,
 } from "../../../../generated/schema";
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
-import { getOrCreateAccountBalance } from "../account";
+import { getOrCreateAccountBalance } from "../../account";
 
 export namespace TransactionType {
   export const SEND: string = "SEND";

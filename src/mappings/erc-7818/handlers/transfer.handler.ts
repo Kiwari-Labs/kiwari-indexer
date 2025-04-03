@@ -5,7 +5,7 @@ import {
   increaseTotalTransactionReceive,
   increaseTotalTransactionTransfer,
   getOrCreateAccount,
-} from "./../account";
+} from "../../account";
 import { Transfer } from "../../../../generated/ERC-7818/ERC20";
 import { getOrCreateToken, incressTokenAndEvent } from "./../erc-7818";
 import { TransactionType, createHistory } from "./../history";
