@@ -19,6 +19,9 @@ type AccountBalance @entity {
   " Current account balance "
   balance: BigDecimal!
 
+  " Current account balance's token ID (if used with an NFT) "
+  tokenIds: [BigInt!]
+
   " Block number in which the balance was last modified "
   block: BigInt
 
@@ -155,7 +158,7 @@ interface Token7818Event {
   timestamp: BigInt!
   transactionHash: Bytes!
   amount: BigDecimal!
-  token: Token!
+  token: TokenERC7818!
 }
 
 type TransferEvent7818 implements Token7818Event @entity {
@@ -189,4 +192,147 @@ type BurnEvent7818 implements Token7818Event @entity {
   transactionHash: Bytes!
   amount: BigDecimal!
   token: TokenERC7818!
+}
+
+### ERC-7858
+
+type HistoryERC7858 @entity {
+  " Equals to: <accountAddress>-<tokenAddress>"
+  id: ID!
+
+  " Block number of the transaction "
+  block: BigInt!
+
+  " Transaction timestamp "
+  timestamp: BigInt!
+
+  " Sender address "
+  sender: AccountBalance!
+
+  " Receiver address "
+  receiver: AccountBalance!
+
+  " Reference to the account balance affected (either sender or receiver) "
+  relatedBalance: AccountBalance!
+
+  " Quantity of tokens transferred "
+  tokenId: BigInt!
+
+  " Transaction hash "
+  transactionHash: Bytes!
+
+  " Token address "
+  token: TokenERC7858!
+}
+
+type FactoryERC7858 @entity {
+  id: ID!
+
+  " Factory address "
+  address: Bytes!
+
+  "Total number of contracts created"
+  totalContractCreated: BigInt
+
+  tokens: [TokenERC7858!]! @derivedFrom(field: "factoryAddress")
+}
+
+type TokenERC7858 @entity {
+  id: ID!
+
+  " Token address "
+  address: Bytes!
+
+  " Human-readable name of the token "
+  name: String
+
+  " Symbol of the token "
+  symbol: String
+
+  "Factory Contract Address"
+  factoryAddress: FactoryERC7858
+
+  "Creator Contract"
+  creator: Account
+
+  "Create Contract At "
+  createdAt: BigInt
+
+  "Create Contract At Block Number"
+  createdAtBlockNumber: BigInt
+
+  " Total token supply "
+  totalSupply: BigInt
+
+  " Total token transferred "
+  totalTokenTransferred: BigInt
+
+  " Total token minted "
+  totalTokenMinted: BigInt
+
+  " Total token burned "
+  totalTokenBurned: BigInt
+
+  " Total number of events (all types)"
+  totalEvent: BigInt
+
+  " Total number of transfer events "
+  totalEventTransfer: BigInt
+
+  " Total number of mint events "
+  totalEventMint: BigInt
+
+  " Total number of burn events "
+  totalEventBurn: BigInt
+
+  " List of transfer event that interacts with these tokens "
+  transferEvents: [TransferEvent7858!]! @derivedFrom(field: "token")
+
+  " List of mint event that interacts with these tokens "
+  mintEvents: [MintEvent7858!]! @derivedFrom(field: "token")
+
+  " List of burn event that interacts with these tokens "
+  burnEvents: [BurnEvent7858!]! @derivedFrom(field: "token")
+}
+
+interface Token7858Event {
+  id: ID!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  tokenId: BigInt!
+  token: TokenERC7858!
+}
+
+type TransferEvent7858 implements Token7858Event @entity {
+  id: ID!
+  sender: AccountBalance!
+  receiver: AccountBalance!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  tokenId: BigInt!
+  token: TokenERC7858!
+}
+
+type MintEvent7858 implements Token7858Event @entity {
+  id: ID!
+  minter: AccountBalance!
+  destination: AccountBalance!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  tokenId: BigInt!
+  token: TokenERC7858!
+}
+
+type BurnEvent7858 implements Token7858Event @entity {
+  id: ID!
+  burner: AccountBalance!
+  destination: AccountBalance!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  tokenId: BigInt!
+  token: TokenERC7858!
 }
