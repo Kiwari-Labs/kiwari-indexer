@@ -1,4 +1,4 @@
-import { Transfer } from "../../../../generated/ERC-7818/ERC20";
+import { Transfer } from "../../../../generated/ERC-7818/ERC7818";
 import {
   AccountBalance,
   BurnEvent7818,

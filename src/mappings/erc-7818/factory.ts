@@ -1,6 +1,6 @@
 import { FactoryERC7818, TokenERC7818 } from "../../../generated/schema";
 import { ERC7818 } from "../../../generated/templates";
-import { NewTokenContract } from "../../../generated/ERC7818Factory/TemplateERC20Factory";
+import { NewTokenContract } from "../../../generated/ERC7818Factory/TemplateERC7818Factory";
 import { getOrCreateAccount } from "../account";
 import { ONE, ZERO } from "../../helpers/number";
 
