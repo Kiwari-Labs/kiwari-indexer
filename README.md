@@ -2,7 +2,7 @@
 This project is a template indexer for indexing data of ERC-7818 and ERC-7858 tokens, compatible with ERC-20 and ERC-721 tokens.
 
 ## DB Diagram
-![image](https://github.com/user-attachments/assets/6fcabf31-f596-4599-9ef2-ce5190d994d3)
+![kiwali-indexer (2)](https://github.com/user-attachments/assets/0c6de5fe-dc9a-4ca5-b917-9a13273c4018)
 
 ## Example Query Data
 <img width="1366" alt="image" src="https://github.com/user-attachments/assets/2fde928f-2b8e-496f-bd37-264c9e182871" />
