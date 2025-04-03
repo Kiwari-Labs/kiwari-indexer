@@ -8,7 +8,7 @@ export let addresses: Addresses = {
   startBlock: "{{startBlock}}",
   isDeployFromFactory: false,
   contractAddress: "{{contractAddress}}",
-  isERC7818: true,
+  isERC7818: false,
 };
 
 const main = (): void => {

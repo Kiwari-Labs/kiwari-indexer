@@ -4,6 +4,7 @@ repository: https://github.com/kiwari/
 schema:
   file: ./schema.graphql
 dataSources:
+{{#isERC7818}}
 {{#isDeployFromFactory}}
   - name: ERC7818Factory
     kind: ethereum/contract
@@ -30,7 +31,7 @@ templates:
     kind: ethereum/contract
     network: {{network}}
     source:
-      abi: ERC20
+      abi: ERC7818
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -38,7 +39,7 @@ templates:
       entities:
         - Transfer
       abis:
-        - name: ERC20
+        - name: ERC7818
           file: ./abis/TemplateERC7818ABI.json
       eventHandlers:
         - event: "Transfer(indexed address,indexed address,uint256)"
@@ -50,7 +51,7 @@ templates:
     kind: ethereum/contract
     network: {{network}}
     source:
-      abi: ERC20
+      abi: ERC7818
       address: "{{contractAddress}}"
       startBlock: {{startBlock}}
     mapping:
@@ -61,9 +62,75 @@ templates:
       entities:
         - TransferEvent
       abis:
-        - name: ERC20
+        - name: ERC7818
           file: ./abis/TemplateERC7818ABI.json
       eventHandlers:
         - event: "Transfer(indexed address,indexed address,uint256)"
           handler: transferHandler
 {{/isDeployFromFactory}}
+{{/isERC7818}}
+{{^isERC7818}}
+{{#isDeployFromFactory}}
+  - name: ERC7858Factory
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: TemplateERC7858Factory
+      address: "{{factoryAddress}}"
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mappings/erc-7858/factory.ts
+      entities:
+        - TokenDeployed
+      abis:
+        - name: TemplateERC7858Factory
+          file: ./abis/TemplateERC7858Factory.json
+      eventHandlers:
+        - event: "NewTokenContract(indexed address,indexed address)"
+          handler: handleTokenDeployed
+templates:
+  - name: ERC7858
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ERC7858
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC7858
+          file: ./abis/TemplateERC7858ABI.json
+      eventHandlers:
+        - event: "Transfer(indexed address,indexed address,indexed uint256)"
+          handler: transferHandler
+      file: ./src/mappings/erc-7858/handlers/transfer.handler.ts
+{{/isDeployFromFactory}}
+{{^isDeployFromFactory}}
+  - name: ERC7858
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: ERC7858
+      address: "{{contractAddress}}"
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mappings/erc-7858/handlers/transfer.handler.ts
+      entities:
+        - TransferEvent
+      abis:
+        - name: ERC7858
+          file: ./abis/TemplateERC7858ABI.json
+      eventHandlers:
+        - event: "Transfer(indexed address,indexed address,indexed uint256)"
+          handler: transferHandler
+{{/isDeployFromFactory}}
+{{/isERC7818}}

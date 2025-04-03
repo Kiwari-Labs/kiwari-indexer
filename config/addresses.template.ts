@@ -4,6 +4,7 @@ export type Addresses = {
   startBlock: string;
   network: string;
   isDeployFromFactory: boolean;
+  isERC7818: boolean
 };
 
 export let addresses: Addresses = {

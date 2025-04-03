@@ -3,12 +3,12 @@ import { Addresses } from "./addresses.template";
 import * as mustache from "mustache";
 
 export let addresses: Addresses = {
-  factoryAddress: "0x0000000000000000000000000000000000000000",
+  factoryAddress: "{{factoryAddress}}",
   network: "{{network}}",
   startBlock: "{{startBlock}}",
-  isDeployFromFactory: false,
-  contractAddress: "{{contractAddress}}",
-  isERC7818: true,
+  isDeployFromFactory: true,
+  contractAddress: "0x0000000000000000000000000000000000000000",
+  isERC7818: false,
 };
 
 const main = (): void => {
